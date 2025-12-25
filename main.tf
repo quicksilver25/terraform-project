@@ -23,18 +23,18 @@ module "security_groups"  {
 }
 
 module "ec2_instances"  {
-   source                = "./modules/ec2"
-   ami                   = var.ami
-   instance_type         = var.instance_type
-   instance_count        = var.instance_count
-   availability_zones    = var.availability_zones 
-   key_name              = var.key_name
-   private_subnet_ids    = module.vpc.private_subnet_ids
-   public_subnet_ids     = module.vpc.public_subnet_ids
-   bastion_public_ids    = module.vpc.public_subnet_ids[0]
-   frontend_sg_id        = module.security_groups.frontend_sg_id
-   backend_sg_id         = module.security_groups.backend_sg_id
-   bastion_sg_id         = module.security_groups.bastion_sg_id
+   source                      = "./modules/ec2"
+   ami                         = var.ami
+   instance_type               = var.instance_type
+   instance_count              = var.instance_count
+   availability_zones          = var.availability_zones 
+   key_name                    = var.key_name
+   private_subnet_ids          = module.vpc.private_subnet_ids
+   public_subnet_ids           = module.vpc.public_subnet_ids
+   bastion_public_subnet_id    = module.vpc.public_subnet_ids[0]
+   frontend_sg_id              = module.security_groups.frontend_sg_id
+   backend_sg_id               = module.security_groups.backend_sg_id
+   bastion_sg_id               = module.security_groups.bastion_sg_id
 }
 
 module "rds_instance" {
