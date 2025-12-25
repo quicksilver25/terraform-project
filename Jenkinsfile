@@ -12,13 +12,14 @@ pipeline {
     environment {
         AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
+        AWS_DEFAULT_REGION    = 'ap-south-2'
     }
 
     stages {
 
         stage('Cleanup Workspace') {
             steps {
-                sh 'rm -rf .terraform terraform.tfstate*'
+                sh 'rm -rf .terraform terraform.tfstate* tfplan'
             }
         }
 
@@ -39,7 +40,7 @@ pipeline {
                 expression { params.ACTION == 'apply' }
             }
             steps {
-                sh 'terraform plan'
+                sh 'terraform plan -var-file=terraform.tfvars -out=tfplan'
             }
         }
 
@@ -57,7 +58,7 @@ pipeline {
                 expression { params.ACTION == 'apply' }
             }
             steps {
-                sh 'terraform apply -auto-approve'
+                sh 'terraform apply -auto-approve tfplan'
             }
         }
 
@@ -66,7 +67,7 @@ pipeline {
                 expression { params.ACTION == 'destroy' }
             }
             steps {
-                sh 'terraform plan -destroy'
+                sh 'terraform plan -destroy -var-file=terraform.tfvars'
             }
         }
 
@@ -84,7 +85,7 @@ pipeline {
                 expression { params.ACTION == 'destroy' }
             }
             steps {
-                sh 'terraform destroy -auto-approve'
+                sh 'terraform destroy -auto-approve -var-file=terraform.tfvars'
             }
         }
     }
