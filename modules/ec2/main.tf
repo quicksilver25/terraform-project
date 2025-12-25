@@ -26,14 +26,15 @@ resource "aws_instance" "frontend_instances" {
     Name = "Frontend-${count.index + 1}"
   }
 
-  user_data = <<-EOF
-    #!/bin/bash
-    apt-get update -y
-    apt-get install -y apache2
-    systemctl start apache2
-    systemctl enable apache2
-    echo "hello frontend ${count.index + 1}" > /var/www/html/index.html
-  EOF
+ user_data = <<-EOF
+  #!/bin/bash
+  yum update -y
+  yum install -y httpd
+  systemctl start httpd
+  systemctl enable httpd
+  echo "hello frontend ${count.index + 1}" > /var/www/html/index.html
+EOF
+
 }
 
 resource "aws_instance" "backend_instance" {
@@ -48,18 +49,19 @@ resource "aws_instance" "backend_instance" {
     Name = "Backend-${count.index + 1}"
   }
 
-  user_data = <<-EOF
-    #!/bin/bash
-    apt-get update -y
-    apt-get install -y apache2
-    systemctl start apache2
-    systemctl enable apache2
-    echo "hello backend ${count.index + 1}" > /var/www/html/index.html
-  EOF
+ user_data = <<-EOF
+  #!/bin/bash
+  yum update -y
+  yum install -y httpd
+  systemctl start httpd
+  systemctl enable httpd
+  echo "hello backend ${count.index + 1}" > /var/www/html/index.html
+EOF
+
 }
 
 resource "aws_instance" "bastion_host" {
-  ami                    = var.ami
+  ami                    = data.aws_ami.amazon_linux.id
   instance_type          = var.instance_type
   key_name               = var.key_name
   subnet_id              = var.bastion_public_subnet_id
@@ -69,4 +71,5 @@ resource "aws_instance" "bastion_host" {
     Name = "Bastion-Host"
   }
 }
+
 
