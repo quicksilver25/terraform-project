@@ -1,8 +1,3 @@
-variable "ami" {
-  description = "The AMI to use for the instances"
-  type        = string
-}
-
 variable "instance_type" {
   description = "The instance type to use for the instances"
   type        = string
