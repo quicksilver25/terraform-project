@@ -24,7 +24,6 @@ module "security_groups"  {
 
 module "ec2_instances"  {
    source                      = "./modules/ec2"
-   ami                         = var.ami
    instance_type               = var.instance_type
    instance_count              = var.instance_count
    availability_zones          = var.availability_zones 
