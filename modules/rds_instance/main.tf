@@ -9,9 +9,9 @@ resource "aws_db_subnet_group" "my_db_subnet_group" {
 resource "aws_db_instance" "default" {
   identifier             = var.db_instance_identifier
   engine                 = var.engine
-  engine_version         = var.engine_version
-  instance_class         = "db.t3.micro"
-  allocated_storage      = 20
+  engine_version         = "8.0"
+  instance_class         = var.db_instance_class
+  allocated_storage      = var.allocated_storage
   db_name                = var.db_name
   username               = var.username
   password               = var.password
