@@ -16,7 +16,7 @@ resource "local_file" "local_ssh_private_key" {
 
 resource "aws_instance" "frontend_instances" {
   count                       = var.instance_count
-  ami                         = var.ami
+  ami                         = data.aws_ami.amazon_linux.id
   instance_type               = var.instance_type
   key_name                    = var.key_name
   subnet_id                   = var.private_subnet_ids[count.index % length(var.private_subnet_ids)]
@@ -39,7 +39,7 @@ EOF
 
 resource "aws_instance" "backend_instance" {
   count                       = var.instance_count
-  ami                         = var.ami
+  ami                         = data.aws_ami.amazon_linux.id
   instance_type               = var.instance_type
   key_name                    = var.key_name
   subnet_id                   = var.private_subnet_ids[count.index % length(var.private_subnet_ids)]
