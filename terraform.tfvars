@@ -1,7 +1,7 @@
 vpc_cidr		                 ="10.0.0.0/16"
-public_subnets_cidr          = ["10.0.1.0/24", "10.0.4.0/24"]
+public_subnets_cidr          = ["10.0.1.0/24", "10.0.2.0/24"]
 private_subnets_cidr         = ["10.0.3.0/24", "10.0.4.0/24"]
-availability_zones           = ["ap-south-la", "ap-south-lb"]
+availability_zones           = ["ap-south-2a", "ap-south-2b"]
 bastion_sg_name              =  "bastion-sg" 
 bastion_sg_description       =   "Security group for Bastion Host with SSH access"
 frontend_sg_name             =  "frontend-sg"
@@ -13,7 +13,6 @@ rds_sg_description           =  "Security group for RDS cluster"
 alb_sg_name                  =  "alb-sg"
 alb_sg_description           = "Security group for ALB with HTTP access"
 anywhere                     = ["0.0.0.0/0"]
-ami                          = "ami-0287a05f0ef0e9d9a"
 instance_type                = "t2.micro"
 instance_count               = 2
 key_name                     = "deployer-key"
