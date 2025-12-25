@@ -7,20 +7,19 @@ resource "aws_db_subnet_group" "my_db_subnet_group" {
   }
 }
 resource "aws_db_instance" "default" {
-  identifier              = var.db_instance_identifier
-  engine                  = var.engine
-  engine_version          = var.engine_version
-  instance_class          = var.db_instance_class
-  allocated_storage       = var.allocated_storage
-  db_name                 = var.db_name
-  username                = var.username
-  password                = var.password
-  parameter_group_name    = var.parameter_group_name
-  db_subnet_group_name    = aws_db_subnet_group.my_db_subnet_group.name
-  vpc_security_group_ids  = [var.rds_sg_id]
-  multi_az                = false         
-  storage_encrypted       = true
-  skip_final_snapshot     = true
-  publicly_accessible     = false
-}
+  identifier             = var.db_instance_identifier
+  engine                 = var.engine
+  engine_version         = var.engine_version
+  instance_class         = "db.t3.micro"
+  allocated_storage      = 20
+  db_name                = var.db_name
+  username               = var.username
+  password               = var.password
+  db_subnet_group_name   = aws_db_subnet_group.my_db_subnet_group.name
+  vpc_security_group_ids = [var.rds_sg_id]
 
+  multi_az            = false
+  storage_encrypted   = false
+  skip_final_snapshot = true
+  publicly_accessible = false
+}
